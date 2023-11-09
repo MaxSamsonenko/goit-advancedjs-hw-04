@@ -65,8 +65,14 @@ async function loadMoreBtnHandler() {
   loadMoreBtn.style.display = 'none'; // hide "Load more" button
   try {
     const imgs = await fetchImages(userInput, pageNumber); //fetch next page images
+    console.log(imgs);
     renderGallery(imgs, galleryContainer, gallery); // add new images to gallery and refresh Simplelightbox
     galleryLoaded(galleryContainer); //apply smooth scrolling
+    //check page number, and display message about end of list of images, requesting page 7 will result in error
+    if (pageNumber === 6) {
+      imgListEnd.style.display = 'block';
+      return;
+    }
     //check if reached the end of images list and hide "Load more" button and show message
     if (imgs.hits.length < 40 || imgs.hits.length === 0) {
       loadMoreBtn.style.display = 'none';
