@@ -42,6 +42,7 @@ async function formSubmitHandler(e) {
       iziToast.error({
         message: `Sorry, there are no images matching your search query. Please try again.`,
       });
+      e.target.searchQuery.value = '';
       return;
     }
     renderGallery(imgs, galleryContainer, gallery); //render gallery, refresh Simplelightbox
