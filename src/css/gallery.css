@@ -1,0 +1,93 @@
+.form-wrapper {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(35, 128, 168);
+  z-index: 2;
+}
+.search-form {
+  width: 340px;
+  position: relative;
+  display: flex;
+}
+.form-input {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 3px 0 0 3px;
+  outline: none;
+}
+
+.form-btn {
+  width: 40px;
+  height: 30px;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 3px 3px 0;
+  background-color: rgb(93, 98, 98);
+  cursor: pointer;
+  font-size: 20px;
+  outline: none;
+  border: none;
+}
+.form-btn:hover {
+  background-color: rgb(129, 135, 135);
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1240px;
+  gap: 20px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 60px 10px 10px 10px;
+  margin-bottom: 20px;
+}
+.photo-card {
+  position: relative;
+  min-width: 240px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  flex-basis: calc((100% - 10px) / 5);
+}
+.info {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  gap: 1px;
+  padding: 0 5px 0 5px;
+}
+.info-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+.info-data {
+  font-size: 12px;
+  font-weight: 600;
+}
+.searched-image {
+  width: 100%;
+  height: 160px;
+}
+.load-more {
+  display: block;
+  margin: 0 auto;
+  background-color: rgb(35, 128, 168);
+  color: #fff;
+  padding: 5px 10px 5px 10px;
+  border: none;
+  border-radius: 4px;
+  min-width: 140px;
+  height: 35px;
+}
+.end-of-img-list {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
