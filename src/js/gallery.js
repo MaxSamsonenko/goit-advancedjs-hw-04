@@ -6,8 +6,9 @@ import { fetchImages } from './api';
 import { renderGallery, galleryLoaded } from './markup';
 
 iziToast.settings({
-  position: 'topRight',
+  position: 'bottomRight',
   timeout: 3000,
+  maxWidth: 300,
 });
 
 let gallery = new SimpleLightbox('.gallery a', {
@@ -44,13 +45,17 @@ async function formSubmitHandler(e) {
       return;
     }
     renderGallery(imgs, galleryContainer, gallery); //render gallery, refresh Simplelightbox
-    loadMoreBtn.style.display = 'block'; //make "Load more" button visible
     e.target.searchQuery.value = ''; //clear input field
     galleryLoaded(galleryContainer); //apply smooth scrolling
     //show success message with total hits
     iziToast.success({
       message: `Hooray! We found ${imgs.totalHits} images`,
     });
+    if (imgs.hits.length < 40) {
+      imgListEnd.style.display = 'block';
+      return;
+    }
+    loadMoreBtn.style.display = 'block'; //make "Load more" button visible
   } catch (error) {
     // handle error
     iziToast.error({
@@ -69,7 +74,7 @@ async function loadMoreBtnHandler() {
     renderGallery(imgs, galleryContainer, gallery); // add new images to gallery and refresh Simplelightbox
     galleryLoaded(galleryContainer); //apply smooth scrolling
     //check page number, and display message about end of list of images, requesting page 7 will result in error
-    if (pageNumber === 6) {
+    if (pageNumber === 13) {
       imgListEnd.style.display = 'block';
       return;
     }
