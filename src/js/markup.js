@@ -36,10 +36,13 @@ export function renderGallery(images, galleryContainer, gallery) {
   gallery.refresh();
 }
 
-export function galleryLoaded(galleryContainer) {
-  const { height: cardHeight } = galleryContainer.getBoundingClientRect();
+export function galleryLoaded() {
+  const { height: cardHeight } = document
+    .querySelector('.photo-card')
+    .getBoundingClientRect();
+  const height = window.innerHeight;
   window.scrollBy({
-    top: cardHeight * 2,
+    top: height - cardHeight,
     behavior: 'smooth',
   });
 }

@@ -31,7 +31,13 @@ let userInput;
 async function formSubmitHandler(e) {
   e.preventDefault();
   pageNumber = 1; //set page number to one on each new search
-  userInput = e.target.searchQuery.value; //user input value
+  userInput = e.target.searchQuery.value.trim(); //user input value
+  if (userInput === '') {
+    iziToast.warning({
+      message: 'Please specify search criteria!',
+    });
+    return;
+  }
   galleryContainer.innerHTML = ''; //clear previous search gallery content
   imgListEnd.style.display = 'none'; //hides message of the end of img list if it was shown before
   loadMoreBtn.style.display = 'none'; //hides "Load more" button, if was visible before
@@ -47,7 +53,6 @@ async function formSubmitHandler(e) {
     }
     renderGallery(imgs, galleryContainer, gallery); //render gallery, refresh Simplelightbox
     e.target.searchQuery.value = ''; //clear input field
-    galleryLoaded(galleryContainer); //apply smooth scrolling
     //show success message with total hits
     iziToast.success({
       message: `Hooray! We found ${imgs.totalHits} images`,
@@ -68,14 +73,14 @@ async function formSubmitHandler(e) {
 //"load more" button handler
 async function loadMoreBtnHandler() {
   pageNumber++; //increase page number by 1 with each request
-  loadMoreBtn.style.display = 'none'; // hide "Load more" button
+  loadMoreBtn.visibility = 'hidden'; // hide "Load more" button
   try {
     const imgs = await fetchImages(userInput, pageNumber); //fetch next page images
-    console.log(imgs);
     renderGallery(imgs, galleryContainer, gallery); // add new images to gallery and refresh Simplelightbox
-    galleryLoaded(galleryContainer); //apply smooth scrolling
+    galleryLoaded(); //apply smooth scrolling
     //check page number, and display message about end of list of images, requesting page 7 will result in error
     if (pageNumber === 13) {
+      loadMoreBtn.style.display = 'none';
       imgListEnd.style.display = 'block';
       return;
     }
@@ -85,7 +90,7 @@ async function loadMoreBtnHandler() {
       imgListEnd.style.display = 'block';
       return;
     }
-    loadMoreBtn.style.display = 'block'; //show "Load more" button
+    loadMoreBtn.visibility = 'visible'; //show "Load more" button
   } catch (error) {
     //handle error
     iziToast.error({
